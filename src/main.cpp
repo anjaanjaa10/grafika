@@ -28,7 +28,7 @@ unsigned int loadTexture(char const * path);
 
 unsigned int loadCubemap(vector<std::string> faces);
 
-void movePlanet(Camera_Movement movement);
+void movePenguin(Camera_Movement movement);
 bool blinnPhong=false;
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -72,7 +72,7 @@ Camera camera(glm::vec3(0.0f, 0.0f, 60.0f));
 bool mouseEnabled = false;
 bool cameraMouseMovementUpdateEnabled = true;
 float rotateAngle = 0.0f;
-glm :: vec3 planetPosition(40.0f,-17.0f,3.0f);
+glm :: vec3 penguinPosition(-10.0f,-10.0f,3.0f);
 bool ssaoButton=false;
 void renderCube();
 void renderQuad();
@@ -142,17 +142,12 @@ int main() {
     // -----------
 
 
-    Model wolfModel("resources/objects/wolf/10055_Gray_Wolf_v1_L3.obj");
-    wolfModel.SetShaderTextureNamePrefix("material.");
-
-    Model fireModel("resources/objects/fire/Campfire OBJ.obj");
-    fireModel.SetShaderTextureNamePrefix("material.");
-
     Model houseModel("resources/objects/kuca/Snow covered CottageOBJ.obj");
     houseModel.SetShaderTextureNamePrefix("material.");
 
     Model pingvinModel("resources/objects/pingv/10033_Penguin_v1_iterations-2.obj");
     pingvinModel.SetShaderTextureNamePrefix("material.");
+
 
     float time=glfwGetTime();
     glm::vec3 shipPosition;
@@ -273,13 +268,13 @@ int main() {
     // -------------
 
     unsigned int transparentTexture = loadTexture(FileSystem::getPath("resources/textures/eskim.png").c_str());
-    vector<glm::vec3> planets
+    vector<glm::vec3> eskim
             {
                     glm::vec3(23.5f, -7.0f, -0.48f),
                     glm::vec3( 2.5f, -25.0f, 0.51f),
                     glm::vec3( -25.0f, -14.0f, .07f),
                     glm::vec3( -10.5f, -22.0f, 4.51f),
-                   //glm::vec3( -25.0f, 14.0f, 3.7f),
+                    //glm::vec3( 1.5f, -25.0f, 0.51f)
 
             };
     blendShader.use();
@@ -467,94 +462,57 @@ int main() {
             shaderGeometryPass.setMat4("view", view);
 
 
-
-           model = glm::mat4(1.0f);
-           glm::vec3 rotation = glm::vec3(-7.0f, glm::cos(glfwGetTime()), 0.8f);
-            model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.05f));
-            shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
-
             model = glm::mat4(1.0f);
-            //rotation = glm::vec3(7.0f, glm::cos(glfwGetTime()), 0.8f);
-            model = glm::translate(model, glm::vec3(1.0f, -13.0f, 1.0f));
-            model = glm::rotate(model, (float) glm::radians(70.0), glm::vec3(1.0f, 0.0f, 5.0f));
-            model = glm::scale(model, glm::vec3(0.09f));
+            glm::vec3 rotation = glm::vec3(-7.0f, glm::cos(glfwGetTime()), 0.8f);
+            model = glm::translate(model, glm::vec3(1.0f, -8.0f, 4.0f));
+            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
+            model = glm::scale(model, glm::vec3(0.25f));
             modelShader.setMat4("model", model);
-            wolfModel.Draw(shaderGeometryPass);
+//            pingvinModel.Draw(modelShader);
 
             model = glm::mat4(1.0f);
-            rotation = glm::vec3(7.0f, glm::cos(glfwGetTime()), 0.8f);
+            rotation = glm::vec3(-10.0f * glm::cos(glfwGetTime()), -10.0f, 1.0f);
             model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.05f));
-            shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
-
-//            model = glm::mat4(1.0f);
-//            rotation = glm::vec3(0.0f, glm::cos(glfwGetTime()), -1.0f);
-//            model = glm::translate(model, rotation);
-//            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
-//            model = glm::scale(model, glm::vec3(3.05f));
-//            shaderGeometryPass.setMat4("model", model);
-//            zamakModel.Draw(shaderGeometryPass);
-
-
-            model = glm::mat4(1.0f);
-            rotation = glm::vec3(10.0f * glm::cos(glfwGetTime()), -15.0f, 3.0f);
-            model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(30.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.07f));
-            shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
-
-            model = glm::mat4(1.0f);
-            rotation = glm::vec3(20.0f * glm::cos(glfwGetTime()), 5.0f * glm::cos(glfwGetTime()),
-                                 20.0f * glm::sin(glfwGetTime()));
-            model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(30.0), glm::vec3(0.0f, 0.0f, 1.0f));
-            model = glm::scale(model, glm::vec3(0.1f));
-            shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
-//
-
-            model = glm::mat4(1.0f);
-            rotation = glm::vec3(20.0f * glm::sin(glfwGetTime()), 20.0f * glm::sin(glfwGetTime()),
-                                 20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, glm::vec3(-40.0f, -8.0f, 4.0f));
             model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
-            model = glm::scale(model, glm::vec3(0.1f));
-            modelShader.setMat4("model", model);
+            model = glm::scale(model, glm::vec3(0.060f));
+            shaderGeometryPass.setMat4("model", model);
+            pingvinModel.Draw(shaderGeometryPass);
+
+            model = glm::mat4(1.0f);
+            rotation = glm::vec3(-4.0f * glm::cos(glfwGetTime()), -10.0f, 1.0f);
+            model = glm::translate(model, rotation);
+            model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
+            model = glm::scale(model, glm::vec3(0.060f));
+            shaderGeometryPass.setMat4("model", model);
+            pingvinModel.Draw(shaderGeometryPass);
+
+            model = glm::mat4(1.0f);
+            rotation = glm::vec3(-10.0f * glm::cos(glfwGetTime()), -15.0f, 1.0f);
+            model = glm::translate(model, rotation);
+            model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
+            model = glm::scale(model, glm::vec3(0.060f));
+            shaderGeometryPass.setMat4("model", model);
             pingvinModel.Draw(shaderGeometryPass);
 
 
             model = glm::mat4(1.0f);
             rotation = glm::vec3(20.0f * glm::sin(glfwGetTime()), 20.0f * glm::sin(glfwGetTime()),
                                  20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(60.0), glm::vec3(0.0f, 1.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.01f));
+            model = glm::translate(model, penguinPosition);
+            model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
+            model = glm::scale(model, glm::vec3(0.060f));
             shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
+            pingvinModel.Draw(shaderGeometryPass);
+
 
             model = glm::mat4(1.0f);
             rotation = glm::vec3(35.0f * glm::sin(glfwGetTime()), 15.0f * glm::cos(glfwGetTime()),
                                  20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(60.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.05f));
+            model = glm::translate(model, glm::vec3(-40.0f, -5.0f, -20.0f));
+            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(-6.0f, -8.0f, 90.0f));
+            model = glm::scale(model, glm::vec3(0.30f));
             shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
-//
-
-//
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, planetPosition);
-            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.04f));
-            shaderGeometryPass.setMat4("model", model);
-            //wolfModel.Draw(shaderGeometryPass);
+            houseModel.Draw(shaderGeometryPass);
 
 
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -666,8 +624,6 @@ int main() {
             modelShader.setMat4("view", view);
 
             modelShader.setFloat("material.shininess", 128.0f);
-
-
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::mat4(1.0f);
             glm::vec3 rotation = glm::vec3(-7.0f, glm::cos(glfwGetTime()), 0.8f);
@@ -675,67 +631,43 @@ int main() {
             model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
             model = glm::scale(model, glm::vec3(0.25f));
             modelShader.setMat4("model", model);
-//            zamakModel.Draw(modelShader);
-
-
-            model = glm::mat4(1.0f);
-            rotation = glm::vec3(7.0f, glm::cos(glfwGetTime()), 0.8f);
-            model = glm::translate(model, glm::vec3(1.0f, -13.0f, 1.0f));
-            model = glm::rotate(model, (float) glm::radians(70.0), glm::vec3(1.0f, 0.0f, 5.0f));
-            model = glm::scale(model, glm::vec3(0.09f));
-            modelShader.setMat4("model", model);
-            wolfModel.Draw(modelShader);
-
-//            model = glm::mat4(1.0f);
-//            rotation = glm::vec3(0.0f, glm::cos(glfwGetTime()), -1.0f);
-//            model = glm::translate(model, rotation);
-//            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
-//            model = glm::scale(model, glm::vec3(3.05f));
-//            modelShader.setMat4("model", model);
-//            zamakModel.Draw(modelShader);
-
+//            pingvinModel.Draw(modelShader);
 
             model = glm::mat4(1.0f);
-            rotation = glm::vec3(10.0f * glm::cos(glfwGetTime()), -15.0f, 3.0f);
+            rotation = glm::vec3(-10.0f * glm::cos(glfwGetTime()), -10.0f, 1.0f);
             model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(30.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.07f));
+            model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
+            model = glm::scale(model, glm::vec3(0.060f));
             modelShader.setMat4("model", model);
-//            zamakModel.Draw(modelShader);
+            pingvinModel.Draw(modelShader);
 
             model = glm::mat4(1.0f);
-            rotation = glm::vec3(20.0f * glm::cos(glfwGetTime()), 5.0f * glm::cos(glfwGetTime()),
-                                 20.0f * glm::sin(glfwGetTime()));
+            rotation = glm::vec3(-4.0f * glm::cos(glfwGetTime()), -10.0f, 1.0f);
             model = glm::translate(model, rotation);
-            model = glm::rotate(model, (float) glm::radians(30.0), glm::vec3(0.0f, 0.0f, 1.0f));
-            model = glm::scale(model, glm::vec3(0.1f));
-            modelShader.setMat4("model", model);
-//            zamakModel.Draw(modelShader);
-//
-            model = glm::mat4(1.0f);
-            rotation = glm::vec3(20.0f * glm::sin(glfwGetTime()), 20.0f * glm::sin(glfwGetTime()),
-                                 20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, glm::vec3(-40.0f, -8.0f, 4.0f));
             model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
             model = glm::scale(model, glm::vec3(0.060f));
             modelShader.setMat4("model", model);
             pingvinModel.Draw(modelShader);
+
             model = glm::mat4(1.0f);
-            rotation = glm::vec3(20.0f * glm::sin(glfwGetTime()), 20.0f * glm::sin(glfwGetTime()),
-                                 20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, glm::vec3(-60.0f, -8.0f, 4.0f));
+            rotation = glm::vec3(-10.0f * glm::cos(glfwGetTime()), -15.0f, 1.0f);
+            model = glm::translate(model, rotation);
             model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
             model = glm::scale(model, glm::vec3(0.060f));
             modelShader.setMat4("model", model);
             pingvinModel.Draw(modelShader);
+
+
+
             model = glm::mat4(1.0f);
             rotation = glm::vec3(20.0f * glm::sin(glfwGetTime()), 20.0f * glm::sin(glfwGetTime()),
                                  20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, glm::vec3(-50.0f, -8.0f, 4.0f));
+            model = glm::translate(model, penguinPosition);
             model = glm::rotate(model, (float) glm::radians(120.0), glm::vec3(-6.0f, 13.0f, 15.0f));
             model = glm::scale(model, glm::vec3(0.060f));
             modelShader.setMat4("model", model);
             pingvinModel.Draw(modelShader);
+
 
             model = glm::mat4(1.0f);
             rotation = glm::vec3(35.0f * glm::sin(glfwGetTime()), 15.0f * glm::cos(glfwGetTime()),
@@ -745,25 +677,6 @@ int main() {
             model = glm::scale(model, glm::vec3(0.30f));
             modelShader.setMat4("model", model);
             houseModel.Draw(modelShader);
-
-            model = glm::mat4(1.0f);
-            rotation = glm::vec3(35.0f * glm::sin(glfwGetTime()), 15.0f * glm::cos(glfwGetTime()),
-                                 20.0f * glm::cos(glfwGetTime()));
-            model = glm::translate(model, glm::vec3(-80.0f, -5.0f, -20.0f));
-            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(-6.0f, -8.0f, 90.0f));
-            model = glm::scale(model, glm::vec3(0.08f));
-            modelShader.setMat4("model", model);
-            //fireModel.Draw(modelShader);
-//
-
-//
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, planetPosition);
-            model = glm::rotate(model, (float) glm::radians(0.0), glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(3.0f));
-            modelShader.setMat4("model", model);
-//            planetModel.Draw(modelShader);
-
 
             modelShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
 
@@ -812,12 +725,12 @@ int main() {
 
             glBindVertexArray(transparentVAO);
             glBindTexture(GL_TEXTURE_2D, transparentTexture);
-            for (unsigned int i = 0; i < planets.size(); i++) {
+            for (unsigned int i = 0; i < eskim.size(); i++) {
                 glEnable(GL_CULL_FACE);
                 glCullFace(GL_BACK);
                 model = glm::mat4(1.0f);
-                model = glm::translate(model, planets[i]);
-                model = glm::scale(model, glm::vec3(7.0f));
+                model = glm::translate(model, eskim[i]);
+                model = glm::scale(model, glm::vec3(13.0f));
                 blendShader.setMat4("model", model);
                 glDrawArrays(GL_TRIANGLES, 0, 6);
                 glDisable(GL_CULL_FACE);
@@ -871,21 +784,20 @@ void processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         camera.ProcessKeyboard(RIGHT, deltaTime);
     }
-    //planet move
 
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        movePlanet(FORWARD);
+        movePenguin(FORWARD);
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        movePlanet(BACKWARD);
+        movePenguin(BACKWARD);
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        movePlanet(LEFT);
+        movePenguin(LEFT);
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        movePlanet(RIGHT);
+        movePenguin(RIGHT);
 
     if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-        movePlanet(UP);
+        movePenguin(UP);
     if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
-        movePlanet(DOWN);
+        movePenguin(DOWN);
     if(glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS){
         ssaoButton=true;
     }
@@ -1006,25 +918,25 @@ unsigned int loadCubemap(vector<std::string> faces)
 
     return textureID;
 }
-void movePlanet(Camera_Movement direction)
+void movePenguin(Camera_Movement direction)
 {
     float velocity = 10.5f * deltaTime;
     glm::vec3 yLock(1.0f, 0.0f, 1.0f);
     glm::vec3 yMove(0.0f, 1.0f, 0.0f);
 
     if (direction == FORWARD)
-        planetPosition += camera.Front * velocity * yLock;
+        penguinPosition += camera.Front * velocity * yLock;
     if (direction == BACKWARD)
-        planetPosition -= camera.Front * velocity * yLock;
+        penguinPosition -= camera.Front * velocity * yLock;
     if (direction == LEFT)
-        planetPosition -= camera.Right * velocity * yLock;
+        penguinPosition -= camera.Right * velocity * yLock;
     if (direction == RIGHT)
-        planetPosition += camera.Right * velocity * yLock;
+        penguinPosition += camera.Right * velocity * yLock;
 
     if (direction == UP)
-        planetPosition += velocity * yMove;
+        penguinPosition += velocity * yMove;
     if (direction == DOWN)
-        planetPosition -= velocity * yMove;
+        penguinPosition -= velocity * yMove;
 
 
 
