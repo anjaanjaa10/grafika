@@ -1,4 +1,4 @@
-/snap/clion/234/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/234/bin/ninja/linux/x64/ninja -G Ninja -S /home/anja/CLionProjects/RG_projekat -B /home/anja/CLionProjects/RG_projekat/cmake-build-debug
+/snap/clion/234/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/234/bin/ninja/linux/x64/ninja -G Ninja -S /home/anja/CLionProjects/Projekat_RG-main/project_base-main -B /home/anja/CLionProjects/Projekat_RG-main/project_base-main/cmake-build-debug
 -- The C compiler identification is GNU 9.4.0
 -- The CXX compiler identification is GNU 9.4.0
 -- Detecting C compiler ABI info
@@ -16,4 +16,4 @@
 -- Found ASSIMP: /usr/lib/x86_64-linux-gnu/libassimp.so
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/anja/CLionProjects/RG_projekat/cmake-build-debug
+-- Build files have been written to: /home/anja/CLionProjects/Projekat_RG-main/project_base-main/cmake-build-debug

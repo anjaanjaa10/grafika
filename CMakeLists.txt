@@ -56,4 +56,3 @@ foreach(SHADER ${SHADERS})
     watch(${SHADER})
 endforeach()
 
-
