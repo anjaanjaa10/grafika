@@ -14,5 +14,5 @@ Grupa A: Cubemap
 Grupa B: SSAO
 
 # Youtube video
-https://youtu.be/IZf8sEL-5-U
+https://youtu.be/AnDE2ac1sYI
 
